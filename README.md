@@ -1,0 +1,2 @@
+# campus-secondhand-miniapp
+基于微信小程序的校园二手交易平台
