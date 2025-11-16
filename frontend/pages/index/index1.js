@@ -21,18 +21,19 @@ Page({
     this.loadItems(true);
   },
 
-  onShow: function() {
+  onShow() { 
     console.log('首页onShow');
-    this.setData({ 
-      currentTab: 0,
-      isTransitioning: false // 重置切换状态
-    });
+    this.setData({ currentTab: 0, isTransitioning: false });
     
-    // 重置页面动画效果
-    this.resetPageAnimation();
-    
-    // 立即检查是否需要刷新
+    if (typeof this.resetPageAnimation === 'function') {
+      this.resetPageAnimation();
+    }
+
     this.immediateRefreshCheck();
+  },
+
+  resetPageAnimation: function() {
+    this.setData({ pageAnimation: null });
   },
 
   onPullDownRefresh: function() {
