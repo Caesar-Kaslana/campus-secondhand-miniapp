@@ -1,0 +1,10 @@
+<!-- item.wxml -->
+
+<view>
+  <text>{{item.title}}</text>
+  <text>价格: ¥{{item.price}}</text>
+  <text>{{item.description}}</text>
+  <block wx:for="{{item.images}}" wx:key="index">
+    <image src="{{item.images[index]}}" style="width:200px;height:200px;"/>
+  </block>
+</view>

@@ -1,0 +1,12 @@
+.container {
+  padding: 40rpx;
+}
+
+.input-group {
+  margin-bottom: 30rpx;
+  border-bottom: 1px solid #ddd;
+}
+
+button {
+  margin-top: 20rpx;
+}

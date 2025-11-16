@@ -1,0 +1,121 @@
+<view class="container">
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="loading-content">
+      <text class="loading-text">加载中...</text>
+    </view>
+  </view>
+
+  <!-- 商品详情内容 -->
+  <view class="detail-content" wx:else>
+    <!-- 顶部图片区域 -->
+    <view class="image-section">
+      <swiper class="swiper" indicator-dots="true" autoplay="false" circular="true" current="{{currentImageIndex}}">
+        <swiper-item wx:for="{{itemDetail.images}}" wx:key="index">
+          <image class="swiper-image" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}"></image>
+        </swiper-item>
+      </swiper>
+      
+      <!-- 返回按钮 -->
+      <view class="back-btn" bindtap="goBack">
+        <text class="back-icon">‹</text>
+      </view>
+      
+      <!-- 收藏按钮 -->
+      <view class="favorite-btn {{isFavorite ? 'active' : ''}}" bindtap="toggleFavorite">
+        <text class="favorite-icon">{{isFavorite ? '♥' : '♡'}}</text>
+      </view>
+    </view>
+
+    <!-- 商品基本信息 -->
+    <view class="basic-info">
+      <view class="price-section">
+        <text class="price-symbol">¥</text>
+        <text class="price">{{itemDetail.price}}</text>
+        <text class="original-price" wx:if="{{itemDetail.originalPrice}}">¥{{itemDetail.originalPrice}}</text>
+      </view>
+      <view class="title">{{itemDetail.title || itemDetail.name}}</view>
+      <view class="desc">{{itemDetail.description}}</view>
+      
+      <view class="meta-info">
+        <view class="meta-item">
+          <text class="meta-label">销量:</text>
+          <text class="meta-value">{{itemDetail.salesCount || 0}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">库存:</text>
+          <text class="meta-value">{{itemDetail.stock || 0}}</text>
+        </view>
+        <view class="meta-item">
+          <text class="meta-label">发布时间:</text>
+          <text class="meta-value">{{itemDetail.createdAt}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 卖家信息 -->
+    <view class="seller-info panel" wx:if="{{itemDetail.seller}}">
+      <view class="panel-title">卖家信息</view>
+      <view class="seller-content">
+        <image class="seller-avatar" src="{{itemDetail.seller.avatar}}"></image>
+        <view class="seller-detail">
+          <text class="seller-name">{{itemDetail.seller.name}}</text>
+          <text class="seller-rating">评分: {{itemDetail.seller.rating || 5.0}}</text>
+        </view>
+        <view class="contact-btn" bindtap="contactSeller">联系卖家</view>
+      </view>
+    </view>
+
+    <!-- 商品详情 -->
+    <view class="detail-panel panel">
+      <view class="panel-title">商品详情</view>
+      <rich-text class="rich-content" nodes="{{itemDetail.content}}"></rich-text>
+      
+      <view wx:if="{{!itemDetail.content}}" class="no-content">
+        <text>暂无详细描述</text>
+      </view>
+    </view>
+
+    <!-- 同类推荐 -->
+    <view class="recommend panel">
+      <view class="panel-title">同类推荐</view>
+      
+      <!-- 有推荐商品时显示 -->
+      <view wx:if="{{hasRecommendItems}}">
+        <view class="recommend-list">
+          <view class="recommend-item" wx:for="{{recommendItems}}" wx:key="id" 
+                bindtap="viewRecommendItem" data-id="{{item.id}}">
+            <image class="recommend-image" src="{{item.images[0]}}" mode="aspectFill"></image>
+            <view class="recommend-info">
+              <text class="recommend-name">{{item.title || item.name}}</text>
+              <text class="recommend-price">¥{{item.price}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 无推荐商品时显示 -->
+      <view wx:else class="no-recommend">
+        <text>暂无推荐商品</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="bottom-toolbar" wx:if="{{!loading}}">
+    <view class="toolbar-left">
+      <view class="toolbar-btn" bindtap="toggleFavorite">
+        <text class="btn-icon {{isFavorite ? 'active' : ''}}">{{isFavorite ? '♥' : '♡'}}</text>
+        <text class="btn-text">{{isFavorite ? '已收藏' : '收藏'}}</text>
+      </view>
+      <view class="toolbar-btn" bindtap="addToCart">
+        <text class="btn-icon">🛒</text>
+        <text class="btn-text">购物车</text>
+      </view>
+    </view>
+    <view class="toolbar-right">
+      <view class="add-cart-btn" bindtap="addToCart">加入购物车</view>
+      <view class="buy-now-btn" bindtap="buyNow">立即购买</view>
+    </view>
+  </view>
+</view>

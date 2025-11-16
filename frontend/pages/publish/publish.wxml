@@ -1,0 +1,47 @@
+<!-- pages/publish/publish.wxml -->
+<view class="publish-container">
+  <!-- 标题输入 -->
+  <view class="input-group">
+    <text class="label">标题</text>
+    <input class="input" placeholder="请输入商品标题" value="{{title}}" bindinput="onTitleInput" maxlength="30" />
+    <text class="word-count">{{title.length}}/30</text>
+  </view>
+
+  <!-- 描述输入 -->
+  <view class="input-group">
+    <text class="label">描述</text>
+    <textarea class="textarea" placeholder="请输入商品详细描述" value="{{description}}" bindinput="onDescInput" maxlength="200" />
+    <text class="word-count">{{description.length}}/200</text>
+  </view>
+
+  <!-- 价格输入 -->
+  <view class="input-group">
+    <text class="label">价格</text>
+    <view class="price-input">
+      <text class="currency">¥</text>
+      <input class="input" type="digit" placeholder="0.00" value="{{price}}" bindinput="onPriceInput" />
+    </view>
+  </view>
+
+  <!-- 图片上传区域 -->
+  <view class="image-upload-group">
+    <text class="label">图片上传 (最多6张)</text>
+    <view class="image-list">
+      <view wx:for="{{images}}" wx:key="index" class="image-item">
+        <image src="{{item}}" class="uploaded-image" bindtap="previewImage" data-index="{{index}}" />
+        <view class="delete-btn" bindtap="deleteImage" data-index="{{index}}">×</view>
+      </view>
+      <view wx:if="{{images.length < 6}}" class="upload-btn" bindtap="chooseImage">
+        <text class="upload-icon">+</text>
+        <text class="upload-text">添加图片</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="submit-section">
+    <button class="submit-btn" bindtap="onSubmit" disabled="{{isSubmitting}}">
+      {{isSubmitting ? '发布中...' : '发布商品'}}
+    </button>
+  </view>
+</view>

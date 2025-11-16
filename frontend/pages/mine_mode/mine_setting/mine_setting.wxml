@@ -1,0 +1,7 @@
+<!-- pages/settings/settings.wxml -->
+<view class="settings-container">
+  <!-- 唯一功能：退出登录 -->
+  <view class="logout-section">
+    <button class="logout-btn" bindtap="showLogoutConfirm">退出登录</button>
+  </view>
+</view>

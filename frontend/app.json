@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index1",
+    "pages/mine_mode/mine/mine",
+    "pages/mine_mode/mine_setting/mine_setting",
+    "pages/item/item",
+    "pages/publish/publish",
+    "pages/mine_mode/login/login",
+    "pages/mine_mode/mine_orders/orders",
+    "pages/item_detail/detail",
+    "pages/mine_mode/about/about"
+  ],
+  "window": {
+    "navigationBarTitleText": "校园二手"
+  }
+}

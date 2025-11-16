@@ -1,0 +1,13 @@
+<view class="container">
+  <view class="input-group">
+    <input placeholder="用户名" bindinput="onUser" />
+  </view>
+
+  <view class="input-group">
+    <input placeholder="密码" password="true" bindinput="onPass" />
+  </view>
+
+  <button bindtap="doLogin">登录</button>
+  <button bindtap="doRegister" type="primary">注册</button>
+</view>
+

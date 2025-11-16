@@ -1,0 +1,121 @@
+page {
+  background: #f7f7f7;
+  height: 100%;
+}
+
+.scroll-view {
+  height: 100%;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+/* LOGO 区域 */
+.logo-area {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.team-logo {
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 30rpx;
+  box-shadow: 0 8rpx 30rpx rgba(0,0,0,0.1);
+}
+
+.logo-text {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+
+/* 标题区 */
+.header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.subtitle {
+  margin-top: 10rpx;
+  font-size: 30rpx;
+  color: #888;
+}
+
+/* 成员卡片 */
+.team-card {
+  background: #fff;
+  border-radius: 25rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0,0,0,0.08);
+  padding: 30rpx;
+  margin-bottom: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 20rpx;
+  margin-right: 30rpx;
+}
+
+.info-area {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.role {
+  font-size: 30rpx;
+  color: #666;
+  margin: 10rpx 0;
+}
+
+.desc {
+  font-size: 28rpx;
+  color: #999;
+  line-height: 40rpx;
+}
+
+/* 联系方式 */
+.contact-card {
+  background: #fff;
+  border-radius: 25rpx;
+  padding: 40rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.06);
+  margin-top: 40rpx;
+  margin-bottom: 40rpx;
+}
+
+.contact-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  margin-bottom: 20rpx;
+}
+
+.contact-item {
+  display: flex;
+  margin-top: 14rpx;
+}
+
+.label {
+  width: 140rpx;
+  font-size: 30rpx;
+  color: #555;
+}
+
+.value {
+  font-size: 30rpx;
+  color: #666;
+  word-break: break-all;
+}

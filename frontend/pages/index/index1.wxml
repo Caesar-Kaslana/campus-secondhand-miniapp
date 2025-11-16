@@ -1,0 +1,94 @@
+<view class="container" animation="{{pageAnimation}}">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <icon type="search" size="14"></icon>
+      <input 
+        placeholder="搜索商品" 
+        bindinput="onSearchInput" 
+        value="{{searchKeyword}}"
+      />
+      <view class="clear-search" wx:if="{{searchKeyword}}" bindtap="clearSearch">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <scroll-view 
+    class="items-list" 
+    scroll-y="true" 
+    bindscrolltolower="onReachBottom"
+    refresher-enabled="true"
+    bindrefresherrefresh="onPullDownRefresh"
+    refresher-triggered="{{isRefreshing}}"
+  >
+    <!-- 下拉刷新提示 -->
+    <view class="refresh-tip" wx:if="{{isRefreshing}}">
+      <text>正在刷新...</text>
+    </view>
+
+    <!-- 商品网格 -->
+    <view class="items-grid">
+      <view 
+        class="item-card" 
+        wx:for="{{items}}" 
+        wx:key="id" 
+        bindtap="onItemTap"
+        data-id="{{item.id}}"
+      >
+        <image class="item-image" src="{{item.images ? item.images[0] : '/images/default-item.png'}}" mode="aspectFill"></image>
+        <view class="item-info">
+          <text class="item-title">{{item.title || item.name || '未命名商品'}}</text>
+          <text class="item-desc">{{item.description || '暂无描述'}}</text>
+          <view class="item-price-section">
+            <text class="item-price">¥{{item.price || '0.00'}}</text>
+            <text class="item-time">{{item.createdAt ? item.createdAt.split(' ')[0] : ''}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载状态 -->
+    <view class="loading-section">
+      <text wx:if="{{loading}}">加载中...</text>
+      <text wx:if="{{!hasMore && items.length > 0}}">没有更多商品了</text>
+      <text wx:if="{{items.length === 0 && !loading}}">暂无商品，快去发布吧！</text>
+    </view>
+  </scroll-view>
+
+  <!-- 自定义底部导航栏 - 移到容器底部 -->
+  <view class="custom-tab-bar">
+    <view 
+      class="tab-bar-item {{currentTab === 0 ? 'active' : ''}}" 
+      data-index="0" 
+      bindtap="switchTab"
+    >
+      <view class="tab-icon">🏠</view>
+      <text class="tab-text">首页</text>
+    </view>
+    
+    <view 
+      class="tab-bar-item {{currentTab === 1 ? 'active' : ''}}" 
+      data-index="1" 
+      bindtap="goToPublish"
+    >
+      <view class="tab-icon">➕</view>
+      <text class="tab-text">发布</text>
+    </view>
+    
+    <view 
+      class="tab-bar-item {{currentTab === 2 ? 'active' : ''}}" 
+      data-index="2" 
+      bindtap="goToMine"
+    >
+      <view class="tab-icon">👤</view>
+      <text class="tab-text">我的</text>
+    </view>
+  </view>
+
+  <!-- 页面切换遮罩层 -->
+  <view class="transition-overlay" wx:if="{{isTransitioning}}">
+    <view class="loading-spinner"></view>
+  </view>
+</view>

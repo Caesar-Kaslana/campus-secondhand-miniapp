@@ -1,0 +1,122 @@
+<view class="orders-container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="back-btn" bindtap="navigateBack">
+      <text class="icon">‹</text>
+      <text>返回</text>
+    </view>
+    <text class="title">我的订单</text>
+    <view class="placeholder"></view>
+  </view>
+
+  <!-- 标签页 -->
+  <view class="tabs">
+    <view 
+      class="tab {{currentTab === 'active' ? 'active' : ''}}" 
+      data-tab="active"
+      bindtap="switchTab"
+    >
+      <text>在售商品</text>
+      <view class="tab-indicator"></view>
+    </view>
+    <view 
+      class="tab {{currentTab === 'inactive' ? 'active' : ''}}" 
+      data-tab="inactive"
+      bindtap="switchTab"
+    >
+      <text>已下架</text>
+      <view class="tab-indicator"></view>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <scroll-view 
+    class="items-scroll" 
+    scroll-y="true" 
+    bindscrolltolower="onReachBottom"
+    refresher-enabled="true"
+    bindrefresherrefresh="onPullDownRefresh"
+    refresher-triggered="{{isRefreshing}}"
+  >
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{items.length === 0 && !loading}}">
+      <image class="empty-icon" src="/images/empty-order.png" mode="aspectFit"></image>
+      <text class="empty-text">{{emptyText}}</text>
+      <view class="empty-action" bindtap="refreshItems">
+        <text>刷新试试</text>
+      </view>
+    </view>
+
+    <!-- 商品列表 -->
+    <view class="items-list" wx:if="{{items.length > 0}}">
+      <view 
+        class="item-card" 
+        wx:for="{{items}}" 
+        wx:key="id"
+        data-id="{{item.id}}"
+        bindtap="viewItemDetail"
+      >
+        <!-- 商品图片 -->
+        <view class="item-image-container">
+          <image 
+            class="item-image" 
+            src="{{item.images && item.images[0] ? item.images[0] : '/images/default-item.png'}}" 
+            mode="aspectFill"
+          ></image>
+          <view class="status-tag {{item.status}}">
+            <text>{{item.status === 'active' ? '在售' : '已下架'}}</text>
+          </view>
+        </view>
+
+        <!-- 商品信息 -->
+        <view class="item-info">
+          <view class="item-header">
+            <text class="item-title">{{item.title || '未命名商品'}}</text>
+            <view class="item-actions" catchtap="showActionMenu" data-item="{{item}}">
+              <text class="more-icon">⋮</text>
+            </view>
+          </view>
+          
+          <text class="item-desc">{{item.description || '暂无描述'}}</text>
+          
+          <view class="item-footer">
+            <text class="item-price">¥{{item.price || '0.00'}}</text>
+            <text class="item-time">{{formatTime(item.createdAt)}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{items.length > 0}}">
+      <text wx:if="{{loading}}">加载中...</text>
+      <text wx:if="{{!hasMore && !loading}}">没有更多商品了</text>
+      <text wx:if="{{hasMore && !loading}}" bindtap="onReachBottom">点击加载更多</text>
+    </view>
+  </scroll-view>
+
+  <!-- 操作菜单 -->
+  <view class="action-sheet" wx:if="{{showActionSheet}}">
+    <view class="action-sheet-mask" catchtap="closeActionSheet"></view>
+    <view class="action-sheet-content">
+      <view 
+        class="action-sheet-item {{index === 2 ? 'danger' : ''}}" 
+        wx:for="{{actionSheetItems}}" 
+        wx:for-index="index"
+        wx:key="index"
+        catchtap="onActionSheetSelect" 
+        data-index="{{index}}"
+      >
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载遮罩 -->
+  <view class="loading-mask" wx:if="{{loading && items.length === 0}}">
+    <view class="loading-content">
+      <image class="loading-icon" src="/images/loading.gif" mode="aspectFit"></image>
+      <text>加载中...</text>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,51 @@
+<view class="page">
+
+  <scroll-view scroll-y="true" class="scroll-view">
+
+    <!-- 团队 LOGO -->
+    <view class="logo-area">
+      <image class="team-logo" src="{{teamLogo}}"></image>
+      <text class="logo-text">We Create. We Build. We Deliver.</text>
+    </view>
+
+    <!-- 页面标题 -->
+    <view class="header">
+      <view class="title">关于我们</view>
+      <view class="subtitle">我们是一个热爱技术的年轻团队</view>
+    </view>
+
+    <!-- 3位成员展示 -->
+    <block wx:for="{{members}}" wx:key="name">
+      <view class="team-card">
+        <image class="avatar" src="{{item.avatar}}"></image>
+
+        <view class="info-area">
+          <view class="name">{{item.name}}</view>
+          <view class="role">{{item.role}}</view>
+          <view class="desc">{{item.desc}}</view>
+        </view>
+      </view>
+    </block>
+
+    <!-- 联系方式 -->
+    <view class="contact-card">
+      <view class="contact-title">📞 联系我们</view>
+
+      <view class="contact-item">
+        <text class="label">微信：</text>
+        <text class="value">{{contact.wechat}}</text>
+      </view>
+
+      <view class="contact-item">
+        <text class="label">邮箱：</text>
+        <text class="value">{{contact.email}}</text>
+      </view>
+
+      <view class="contact-item">
+        <text class="label">GitHub：</text>
+        <text class="value">{{contact.github}}</text>
+      </view>
+    </view>
+
+  </scroll-view>
+</view>
